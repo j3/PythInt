@@ -14,14 +14,14 @@ def trier(file):
             flag = 1
             line = i
             ligne = linecache.getline("tosort/"+file, line)
-            place(ligne)
+            place(ligne, file)
     if flag == 0:
        print('No email was found on '+arob+'.')
 
-def place(ligne):
+def place(ligne, filename):
     alphabet = "abcdefghijklmnopqrstuvwxyz"
     if os.path.exists('sorteddbs/'+ligne[0]+'/'+ligne[1]+'/') == True:
         with open('sorteddbs/'+ligne[0]+'/'+ligne[1]+'/'+ligne[0]+ligne[1]+'.txt', 'a') as the_file:
-            the_file.write(ligne)
+            the_file.write(filename+': '+ligne)
 
 # https://github.com/SoikRs/PythInt
