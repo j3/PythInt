@@ -5,6 +5,7 @@ import linecache
 import requests
 import json
 import urllib3
+from research import ip_research as ip
 # Disable requests and urllib3 certificate warnings https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.urllib3.disable_warnings(InsecureRequestWarning)
@@ -19,9 +20,9 @@ def research(mail, isitarealemailapi, leakcheckapi):
     if reponse.startswith('o'):
         api_search(mail, leakcheckapi)
         api_validate(mail, isitarealemailapi)
-        local_search(mail)
+        local_search(mail,1)
     else:
-        local_search(mail)
+        local_search(mail,0)
 
 def api_search(mail, leakcheckapi):
     '''
@@ -60,13 +61,12 @@ def api_validate(mail, isitarealemailapi):
     else:
         return None
 
-def local_search(mail):
+def local_search(mail, api):
     '''
     Function that search the email in an "optimized" way by searching on the files that have already been sorted.
     '''
     folder1 = mail[0]
     folder2 = mail[1]
-    
     fichiertxt = open("sorteddbs/"+folder1+"/"+folder2+"/"+folder1+folder2+".txt", "r", encoding="utf8")
     flag = 0
     i = 0
@@ -77,6 +77,8 @@ def local_search(mail):
             line = i
             ligne = linecache.getline("sorteddbs/"+folder1+"/"+folder2+"/"+folder1+folder2+".txt", line)
             print(ligne)
+            if api == 1:
+                ip.find_ip(ligne)
             break
     if flag == 0:
        print('Email ('+mail+') not found in local databases.')
