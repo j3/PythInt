@@ -5,6 +5,7 @@ import linecache
 import requests
 import json
 import urllib3
+import time
 from research import ip_research as ip
 # Disable requests and urllib3 certificate warnings https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -12,6 +13,7 @@ requests.urllib3.disable_warnings(InsecureRequestWarning)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def research(mail, isitarealemailapi, leakcheckapi):
+    tic = time.time()
     '''
     Ask if the user want to search the email locally only or using api services too.
     '''
@@ -23,6 +25,8 @@ def research(mail, isitarealemailapi, leakcheckapi):
         local_search(mail,1)
     else:
         local_search(mail,0)
+    tac = time.time()
+    print("Database searched in " + time.strftime("%H:%M:%S", time.gmtime(tac-tic)) + ".")
 
 def api_search(mail, leakcheckapi):
     '''
@@ -40,7 +44,6 @@ def api_search(mail, leakcheckapi):
         else:
              print("Unknown leakcheck.net error.")
     else:
-        found = data["found"]
         for i in data["result"]:
             line = (i["line"])
             sources = (i["sources"])

@@ -15,7 +15,7 @@ if len(sys.argv) == 1:
 elif sys.argv[1] == "-r":
     rec.research(sys.argv[2],isitarealemailapi,leakcheckapi)
 elif sys.argv[1] == "-t":
-    tri.trier(sys.argv[2])
+    tri.sort(sys.argv[2])
 else:
     print("Invalid arguments")
     print("Use : python main.py -r [email...] | -t [file...]")
