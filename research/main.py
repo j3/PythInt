@@ -6,7 +6,7 @@ import requests
 import json
 import urllib3
 import time
-from research import ip_research as ip
+import ip_research as ip
 # Disable requests and urllib3 certificate warnings https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.urllib3.disable_warnings(InsecureRequestWarning)
